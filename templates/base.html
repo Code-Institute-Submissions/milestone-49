@@ -155,7 +155,7 @@
                     </div>
                 </li>
                 <li class="list-inline-item">
-                    <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-lg-none" href="">
+                    <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-lg-none" href="{% url 'view_cart' %}">
                         <div class="text-center">
                             <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                             <p class="my-0">
@@ -191,7 +191,7 @@
     <footer class="container=fluid fixed-bottom">
         <div id="cart-footer" class="row bg-primary text-white py-2 d-none d-lg-flex">
             <div class="col-lg-2 my-auto text-center">
-                                <h4 class="my-0"><i class="fas fa-shopping-cart fa-lg px-2"></i>Cart</h4>
+                <h4 class="my-0"><a class="text-white text-decoration-none" href="{% url 'view_cart' %}"><i class="fas fa-shopping-cart fa-lg px-2"></i>Cart</a></h4>
             </div>
             <div class="col-lg-2 my-auto text-left">
                     <h4 class="my-0">Total: 
@@ -213,8 +213,8 @@
             </div>
             <div class="col-lg-2 my-auto py-0 text-left">
                     <h4 class="my-0"># of Items: 
-                        {% if item_total %}
-                            ${{ item_total }}
+                        {% if book_count %}
+                            {{ book_count }}
                         {% else %}
                             0
                         {% endif %}

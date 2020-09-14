@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block page_header %}
+<div class="container-fluid header-container">
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% if cart_items %}
+                <div class="table-responsive rounded">
+                    <table class="table table-sm table-borderless">
+                        <thead class="text-dark">
+                            <tr>
+                                <th scope="col">Book Title</th>
+                                <th scope="col"></th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                        </thead>
+
+                        {% for item in cart_items %}
+                            <tr class="border-top border-bottom">
+                                <td class="p-3 w-25">
+                                    <a href="{% url 'book_detail' item.book.id %}"><img class="img-fluid rounded" src="{{ item.book.image.url }}"></a>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0"><strong><a href="{% url 'book_detail' item.book.id %}">{{ item.book.name }}</a></strong></p>
+                                    <p class="my-0 small text-muted">ISBN-10: {{ item.book.isbn10 }}</p>
+                                    <p class="my-0 small text-muted">ISBN-13: {{ item.book.isbn13 }}</p>
+                                </td>
+                                <td class="py-3">
+                                    {% if item.book.disc_price %}
+                                        <p class="my-0">${{ item.book.disc_price }}</p>
+                                    {% else %}
+                                        <p class="my-0">${{ item.book.price }}</p>
+                                    {% endif %}
+                                </td>
+                                <td class="py-3 w-25">
+                                    <form class="form d-inline" method="POST" action="{% url 'adjust_cart' item.item_id %}">
+                                        {% csrf_token %}
+                                        <input type="number" class="mb-2" name="quantity" value="{{ item.quantity }}">"</input>
+                                        <br>
+                                            <button type="submit" value="Update" class="btn btn-sm btn-primary">Update</button>
+                                    </form>
+                                    <form class="form d-inline" method="POST" action="{% url 'remove_from_cart' item.item_id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" value="Delete" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">${{ item.subtotal }}</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="5" class="pt-5 text-right">
+                                <h6><strong>Bag Total: ${{ total|floatformat:2 }}</strong></h6>
+                                <h6>Shipping: ${{ shipping|floatformat:2 }}</h6>
+                                <h4 class="mt-4"><strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
+                                {% if free_ship_rem > 0 %}
+                                    <p class="mb-1 text-danger">
+                                        You could get free delivery by spending just <strong>${{ free_ship_rem }}</strong> more!
+                                    </p>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="text-right">
+                                <a href="{% url 'books' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                    <span class="icon">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="text-uppercase">Keep Shopping</span>
+                                </a>
+                                <a href="" class="btn btn-black rounded-0 btn-lg">
+                                    <span class="text-uppercase">Secure Checkout</span>
+                                    <span class="icon">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            {% else %}
+                <p class="lead mb-5">Your bag is currently empty.</p>
+                <a href="{% url 'books' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="text-uppercase">Keep Shopping</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="topscroll shadow-sm rounded-0 border border-black">
+        <a id="topscroll" class="d-flex h-100">
+            <i class="fas fa-arrow-up mx-auto my-auto"></i>
+        </a>	
+</div>
+{% endblock %}
+
+{% block extra_postload_js %}
+<script type="text/javascript">
+		$('#topscroll').click(function(e) {
+			window.scrollTo(0,0)
+		})
+</script>
+{% endblock %}
