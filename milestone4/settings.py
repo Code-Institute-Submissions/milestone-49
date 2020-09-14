@@ -159,3 +159,5 @@ LOGIN_REDIRECT_URL= '/'
 
 FREE_SHIP_MIN = 75
 SHIP_PERCENT = 10
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

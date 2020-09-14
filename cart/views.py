@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.contrib import messages
 from books.models import Book
 
 
@@ -17,8 +18,12 @@ def add_to_cart(request, item_id):
 
     if item_id in list(cart.keys()):
         cart[item_id] += quantity
+        messages.success(request,
+                             (f'Updated {book.name} '
+                              f'quantity to {cart[item_id]}'))
     else:
         cart[item_id] = quantity
+        messages.success(request, f'Added {book.name} to your cart')
 
     request.session['cart'] = cart
     return redirect(redirect_url)
@@ -32,8 +37,13 @@ def adjust_cart(request, item_id):
 
     if quantity > 0:
         cart[item_id] = quantity
+        messages.success(request,
+                             (f'Updated {book.name} '
+                              f'quantity to {cart[item_id]}'))
     else:
         bag.pop(item_id)
+        messages.success(request,
+                             (f'Removed {book.name} from your cart'))
 
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
@@ -42,12 +52,12 @@ def remove_from_cart(request, item_id):
     """ A view to delete from the cart """
     try:
         book = get_object_or_404(Book, pk=item_id)
-        print(item_id)
         cart = request.session.get('cart', {})
-        print(cart)
         cart.pop(item_id)
-        print(cart)
+        messages.success(request,
+                             (f'Removed {book.name} from your cart'))
         request.session['cart'] = cart
         return redirect(reverse('view_cart'))
     except Exception as e:
+        messages.error(request, f'Error removing item: {e}')
         return HttpResponse(status=500)
