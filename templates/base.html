@@ -42,7 +42,7 @@
                 </a>
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <form method="GET" action="">
+                <form method="GET" action="{% url 'books' %}">
                     <div class="input-group w-100">
                         <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search for a Book">
                         <div class="input-group-append">
@@ -65,11 +65,11 @@
                             </div>
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="book-options">
-                            <a href="" class="dropdown-item">All Books</a>
-                            <a href="" class="dropdown-item">Fiction</a>
-                            <a href="" class="dropdown-item">Non Fiction</a>
-                            <a href="" class="dropdown-item">Cookbooks</a>
-                            <a href="" class="dropdown-item">Wellness</a>
+                            <a href="{% url 'books' %}" class="dropdown-item">All Books</a>
+                            <a href="{% url 'books' %}?category=fiction" class="dropdown-item">Fiction</a>
+                            <a href="{% url 'books' %}?category=non_fiction" class="dropdown-item">Non Fiction</a>
+                            <a href="{% url 'books' %}?category=cookbooks" class="dropdown-item">Cookbooks</a>
+                            <a href="{% url 'books' %}?category=wellness" class="dropdown-item">Wellness</a>
                         </div>
                     </li>
                     <li class="list-inline-item dropdown">
@@ -105,11 +105,11 @@
                         </div>
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="book-options">
-                        <a href="" class="dropdown-item">All Books</a>
-                        <a href="" class="dropdown-item">Fiction</a>
-                        <a href="" class="dropdown-item">Non Fiction</a>
-                        <a href="" class="dropdown-item">Cookbooks</a>
-                        <a href="" class="dropdown-item">Wellness</a>
+                        <a href="{% url 'books' %}'" class="dropdown-item">All Books</a>
+                        <a href="{% url 'books' %}?category=fiction" class="dropdown-item">Fiction</a>
+                        <a href="{% url 'books' %}?category=non_fiction" class="dropdown-item">Non Fiction</a>
+                        <a href="{% url 'books' %}?category=cookbooks" class="dropdown-item">Cookbooks</a>
+                        <a href="{% url 'books' %}?category=wellness" class="dropdown-item">Wellness</a>
                     </div>
                 </li>
                 <li class="list-inline-item">
@@ -120,7 +120,7 @@
                         </div>
                     </a>
                     <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0" aria-labelledby="mobile-search">
-                        <form class="form" method="GET" action="">
+                        <form class="form" method="GET" action="{% url 'books' %}">
                             <div class="input-group w-100">
                                 <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search for a Book">
                                 <div class="input-group-append">
