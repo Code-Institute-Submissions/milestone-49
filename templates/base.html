@@ -65,7 +65,7 @@
                             </div>
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="book-options">
-                            <a href="{% url 'books' %}" class="dropdown-item">All Books</a>
+                            <a href="{% url 'books' %}?category=fiction,non_fiction,cookbooks,wellness" class="dropdown-item">All Books</a>
                             <a href="{% url 'books' %}?category=fiction" class="dropdown-item">Fiction</a>
                             <a href="{% url 'books' %}?category=non_fiction" class="dropdown-item">Non Fiction</a>
                             <a href="{% url 'books' %}?category=cookbooks" class="dropdown-item">Cookbooks</a>
@@ -105,7 +105,7 @@
                         </div>
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="book-options">
-                        <a href="{% url 'books' %}'" class="dropdown-item">All Books</a>
+                        <a href="{% url 'books' %}?category=fiction,non_fiction,cookbooks,wellness'" class="dropdown-item">All Books</a>
                         <a href="{% url 'books' %}?category=fiction" class="dropdown-item">Fiction</a>
                         <a href="{% url 'books' %}?category=non_fiction" class="dropdown-item">Non Fiction</a>
                         <a href="{% url 'books' %}?category=cookbooks" class="dropdown-item">Cookbooks</a>

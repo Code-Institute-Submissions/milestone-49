@@ -19,6 +19,19 @@ body {
     color: white;
 }
 
+.topscroll {
+    height: 50px;
+    width: 50px;
+    position: fixed;
+    bottom: 120px;
+    right: 10px;
+    z-index: 999;
+}
+
+#topscroll {
+    cursor: pointer;
+}
+
 footer {
     margin-top: 121px;
 }
