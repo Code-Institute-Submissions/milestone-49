@@ -3,23 +3,70 @@
 
 
 {% block page_header %}
-    <div class="container-fluid header-container home-banner-1">
-        <div class="home-banner-1-inner text-center">
-
-            <h1 class="text-uppercase py-2">Browse Best Selling Books</h1>
-            <a href="" class="btn btn-white btn-lg text-uppercase border border-white btn-block">Shop Now</a>
-        
-        </div>
+    <div class="container-fluid header-container">
     </div>
 
 {% endblock %}
 
 {% block content %}
-<div class="container my-3">
+<div class="container my-5">
     <div class="row">
-        <div class="col">
-            {{books}}
+        <div class="col text-center">
+            <h1 class="py-4">Books</h1>
         </div>
+    </div>
+    <div class="row">
+        {% for book in books %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 mt-2">
+            <div class="card h-100 border-0">
+                {% if book.image %}
+                <a href="{% url 'book_detail' book.id %}">
+                    <img class="card-img-top img-fluid" src="{{ book.image.url }}" alt="{{ book.name }}">
+                </a>
+                {% else %}
+                <a href="{% url 'book_detail' book.id %}">
+                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ book.name }}">
+                </a>
+                {% endif %}
+                <div class="card-body d-flex flex-column pb-0">
+                    <div class="mt-auto">
+                        <a href="{% url 'book_detail' book.id %}">
+                            <p class="mb-0 text=uppercase text-center font-weight-bold">{{ book.name }}</p>
+                        </a>
+                        <a href="">
+                        <p class="mb-0 text-center">{{ book.author }}</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer bg-white pt-0 border-0 text-left">
+                    <div class="row">
+                        <div class="col">
+                            {% if book.disc_price %}
+                            <p class="lead mb-0 text-center">
+                                <span class="text-danger font-weight-bold">${{ book.disc_price }}</span>
+                                <s>${{ book.price }}</s>
+                            </p>
+                            {% else %}
+                            <p class="lead mb-0 text-center font-weight-bold">${{ book.price }}</p>
+                            {% endif %}
+
+                            <p class="text-center my-2">
+                                <a href="" class="btn btn-light border-top border-bottom border-dark">Add to Cart</a>
+                                <br>
+                                {% if request.user.is_superuser %}
+                                <small class="ml-3">
+                                    <a href="">Edit</a> | 
+                                    <a class="text-danger" href="">Delete</a>
+                                </small>
+                                {% endif %}
+                            </p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

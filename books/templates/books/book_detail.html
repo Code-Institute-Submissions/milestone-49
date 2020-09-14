@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block page_header %}
+    <div class="container-fluid header-container">
+    </div>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mt-5">
+        <div class="col-12 col-md-5 mt-5 text-center py-2">
+            {% if book.image %}
+            <a href="">
+                <img class="img-fluid" src="{{ book.image.url }}" alt="{{ book.name }}">
+            </a>
+            {% else %}
+            <a href="">
+                <img class=" img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ book.name }}">
+            </a>
+            {% endif %}
+        </div>
+        <div class="col-12 col-md-7 mt-3 pt-5 pb-3">
+            <h3 class="mb-3 text=uppercase font-weight-bold text-left">{{ book.name }}</h3>
+            <p class="mb-0 text-left">by <strong>{{ book.author }}</strong></p>
+            <p class="mb-3 text-left">
+            
+                {{book.published}} | 
+
+                {% if book.rating == 5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                {% elif book.rating == 4.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half"></i>
+                {% elif book.rating == 4 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                {% elif book.rating == 3.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half"></i>
+                {% elif book.rating == 3 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                {% elif book.rating == 2.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half"></i>
+                {% elif book.rating == 2 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                {% elif book.rating == 1.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half"></i>
+                {% elif book.rating == 1 %}
+                <i class="fas fa-star"></i>
+                {% elif book.rating == 0.5 %}
+                <i class="fas fa-star-half"></i>
+                {% endif %}
+            </p>
+
+
+
+            {% if book.disc_price %}
+            <p class="lead my-2 text-left">
+                <span class="text-danger font-weight-bold">${{ book.disc_price }}</span>
+                <s>${{ book.price }}</s>
+            </p>
+            {% else %}
+            <p class="lead my-2 text-left font-weight-bold">${{ book.price }}</p>
+            {% endif %}
+
+            <p>Earn {{points}} Milton Bookstore Points.</p>
+            <p>1% of the sale of this book will go towards funding education in high-need communities.</p>
+            <p class="btn btn-primary border-none btn-block disabled">
+                <i class="fas fa-shipping-fast p-2"></i> Ships Free on Orders Over ${{ free_ship_min }}
+            </p>
+            <p class="text-left my-2">
+                <select id="quantity" name="quantity" class="btn-block disabled p-2">
+                </select>
+                <a href="" class="btn btn-dark border-dark btn-block p-3">Add to Cart</a>
+                <br>
+                {% if request.user.is_superuser %}
+                <small class="ml-3">
+                    <a href="">Edit</a> | 
+                    <a class="text-danger" href="">Delete</a>
+                </small>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-5 ">
+            <h4>About</h4>
+            <p class="font-weight-bold">{{book.description}}</p>
+            <p>
+                <a id="fulldescription_switch" data-toggle="collapse" href="#fulldescrition" role="button" aria-expanded="false" aria-controls="fulldescrition">Read More ...</a>
+            </p>
+            <div class="collapse" id="fulldescrition">
+                <p>{{book.description_full}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-5 ">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Details & Specifications
+                        </button>
+                    </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <p>Title: {{book.name}}</p>
+                        <p>Author: {{book.author}}</p>
+                        <p>Pages: {{book.pages}}</p>
+                        <p>Genre: {{book.category.get_friendly_name}}</p>
+                        <p>Published: {{book.published}}</p>
+                        <p>Publisher: {{book.publisher}}</p>
+                        <p>Language: {{book.language}}</p>
+
+                        <p>The following ISBNs are associated with this title:</p>
+                        
+                        <p>ISBN - 10: {{book.isbn10}}</p>
+                        <p>ISBN - 13: {{book.isbn13}}</p>
+                        
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_postload_js %}
+<script type="text/javascript">
+    for(var i=1; i<=99; i++){
+    var select = document.getElementById("quantity");
+    var option = document.createElement("OPTION");
+    select.options.add(option);
+    option.text = i;
+    option.value = i;
+};
+
+$('#fulldescription_switch').click(function(){ 
+    $(this).text(function(i,old){
+        return old=='Read More ...' ?  'Read Less ...' : 'Read More ...';
+    });
+});
+</script>
+{% endblock %}
