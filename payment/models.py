@@ -42,8 +42,8 @@ class Order(models.Model):
             sp = settings.SHIP_PERCENT
             self.shipping_cost = self.order_total * sp / 100
         else:
-            self.delivery_cost = 0
-        self.grand_total = self.order_total + self.delivery_cost
+            self.shipping_cost = 0
+        self.grand_total = self.order_total + self.shipping_cost
         self.save()
 
     def save(self, *args, **kwargs):
