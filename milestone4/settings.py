@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'books',
     'cart',
     'payment',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'cart.contexts.cart_contents'
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]
@@ -162,3 +167,5 @@ FREE_SHIP_MIN = 75
 SHIP_PERCENT = 10
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

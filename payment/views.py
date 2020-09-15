@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import OrderForm
 
 
-def checkout(request):
+def payment(request):
     cart = request.session.get('cart', {})
     if not cart:
         messages.error(request, "Keep shopping. Your cart is empty.")
