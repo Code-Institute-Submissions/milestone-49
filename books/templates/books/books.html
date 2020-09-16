@@ -91,8 +91,8 @@
                                 <br>
                                 {% if request.user.is_superuser %}
                                 <small class="ml-3">
-                                    <a href="">Edit</a> | 
-                                    <a class="text-danger" href="">Delete</a>
+                                    <a href="{% url 'edit_book' book.id %}"">Edit</a> | 
+                                    <a class="text-danger" href="{% url 'delete_book' book.id %}">Delete</a>
                                 </small>
                                 {% endif %}
                             </p>

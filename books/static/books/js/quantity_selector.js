@@ -1,5 +1,5 @@
 for(var i=1; i<=99; i++){
-    var select = document.getElementByClassName("quantity");
+    var select = document.getElementById("quantity");
     var option = document.createElement("OPTION");
     select.options.add(option);
     option.text = i;
