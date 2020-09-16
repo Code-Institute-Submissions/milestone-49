@@ -52,18 +52,26 @@ footer {
 }
 
 #footer-offset {
-    margin-top: 125px;
+    margin-top: 121px;
 }
 
 @media (min-width: 992px) {
     .header-container {
         margin-top: 137px;
     }
+
+    .home-banner-1 {
+        height: calc(100vh - 258px);
+    }
 }
 
 @media (max-width: 991px) {
     .header-container {
         margin-top: 120px;
+    }
+
+    .home-banner-1 {
+        height: calc(100vh - 141px);
     }
 }
 
