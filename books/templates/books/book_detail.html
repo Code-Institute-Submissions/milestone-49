@@ -13,13 +13,9 @@
     <div class="row mt-5">
         <div class="col-12 col-md-5 mt-5 text-center py-2">
             {% if book.image %}
-            <a href="">
                 <img class="img-fluid" src="{{ book.image.url }}" alt="{{ book.name }}">
-            </a>
             {% else %}
-            <a href="">
                 <img class=" img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ book.name }}">
-            </a>
             {% endif %}
         </div>
         <div class="col-12 col-md-7 mt-3 pt-5 pb-3">

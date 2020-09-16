@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block page_header %}
+    <div class="container-fluid header-container">
+    </div>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-12 col-md-8 text-center py-2">
+            {% if post.image %}
+                <img class="img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% else %}
+                <img class=" img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ post.title }}">
+            {% endif %}
+            <p class="my-1 text-left"><strong>Category:</strong> {{post.category.friendly_name}}</p>
+            {% if request.user.is_superuser %}
+                <small class="ml-3">
+                    <a href="{% url 'edit_post' post.id %}">Edit</a> | 
+                    <a class="text-danger" href="{% url 'delete_post' post.id %}">Delete</a>
+                </small>
+            {% endif %}
+        </div>
+        
+        
+        <div class="col-12 col-md-8 text-left py-2">
+            <h3 class="mb-3 text=uppercase font-weight-bold text-left">{{ post.title }}</h3>
+            <p class="mb-0 text-left">{{ post.post_snippet }}</p>
+            <p class="mb-0 text-left">{{ post.post_content }}</p>
+            <p class="small my-0"><strong>Published:</strong> {{post.created}}</p>
+            <p class="small my-0"><strong>Updated:</strong> {{post.updated}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_postload_js %}
+<script type="text/javascript" src="{% static 'books/js/scroll_to_top.js' %}"></script>
+{% endblock %}
