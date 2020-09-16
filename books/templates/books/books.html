@@ -82,7 +82,12 @@
                             {% endif %}
 
                             <p class="text-center my-2">
-                                <a href="" class="btn btn-light border-top border-bottom border-dark">Add to Cart</a>
+                                <form class="form my-2" action="{% url 'add_to_cart' book.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input name="quantity" id="quantity" value="1" type="hidden"></input>
+                                    <input type="submit" class="btn btn-dark border-dark btn-block p-3" value="Add to Cart"></input>
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                </form>
                                 <br>
                                 {% if request.user.is_superuser %}
                                 <small class="ml-3">
@@ -108,11 +113,6 @@
 {% endblock %}
 
 {% block extra_postload_js %}
-<script type="text/javascript">
-		$('#topscroll').click(function(e) {
-			window.scrollTo(0,0)
-		})
-</script>
-    
+<script type="text/javascript" src="{% static 'books/js/scroll_to_top.js' %}"></script>
 <script type="text/javascript" src="{% static 'books/js/sort_selector.js' %}"></script>
 {% endblock %}

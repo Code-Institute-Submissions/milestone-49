@@ -51,6 +51,10 @@ footer {
     margin-top: 121px;
 }
 
+#footer-offset {
+    margin-top: 125px;
+}
+
 @media (min-width: 992px) {
     .header-container {
         margin-top: 137px;

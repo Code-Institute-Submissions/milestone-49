@@ -82,7 +82,7 @@
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
-                                    <a href="" class="dropdown-item">Product Management</a>
+                                    <a href="{% url 'add_book' %}" class="dropdown-item">Product Management</a>
                                 {% endif %}
                                 <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
@@ -144,7 +144,7 @@
                     <div class="dropdown-menu border-0" aria-labelledby="user-options">
                         {% if request.user.is_authenticated %}
                             {% if request.user.is_superuser %}
-                                <a href="" class="dropdown-item">Product Management</a>
+                                <a href="{% url 'add_book' %}" class="dropdown-item">Product Management</a>
                             {% endif %}
                             <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
                             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
@@ -205,7 +205,7 @@
     {% endblock %}
     {% block outer_content_bottom %}
     {% endblock %}
-
+    <div id="footer-offset"></div>
     <footer class="container=fluid fixed-bottom">
         <div id="cart-footer" class="row bg-primary text-white py-2 d-none d-lg-flex">
             <div class="col-lg-2 my-auto text-center">

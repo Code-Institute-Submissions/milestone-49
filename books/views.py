@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
 from .models import Book, Category
+from .forms import BookForm
 
 def all_books(request):
     """ A view to return all books """
@@ -71,3 +72,23 @@ def book_detail(request, book_id):
     }
 
     return render(request, 'books/book_detail.html', context)
+
+def add_book(request):
+    """ Add a book to the store """
+    if request.method == 'POST':
+        form = BookForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added book!')
+            return redirect(reverse('add_book'))
+        else:
+            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+    else:
+        form = BookForm()
+        
+    template = 'books/add_book.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)
