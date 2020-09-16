@@ -21,7 +21,7 @@ def all_posts(request):
             sort = sortkey
             if sortkey == 'name':
                 sortkey = 'lower_name'
-                posts = posts.annotate(lower_name=Lower('name'))
+                posts = posts.annotate(lower_name=Lower('title'))
             if sortkey == 'category':
                 sortkey = 'category__name'
             if 'direction' in request.GET:
