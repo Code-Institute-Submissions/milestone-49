@@ -19,6 +19,7 @@ def cart_contents(request):
             if book.disc_price != 0:
                 subtotal = quantity * book.disc_price
                 total += subtotal
+                savings_total += (book.price - book.disc_price) * quantity
             else:
                 subtotal = quantity * book.price
                 total += subtotal
@@ -50,7 +51,9 @@ def cart_contents(request):
         'free_ship_remain': free_ship_remain,
         'free_ship_min': settings.FREE_SHIP_MIN,
         'savings_total': savings_total,
+        'total': total,
         'grand_total': grand_total,
+        'savings_total': savings_total,
     }
 
     return context

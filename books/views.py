@@ -50,6 +50,7 @@ def all_books(request):
         'books': books,
         'search_term': query,
         'current_categories': categories,
+        'current_sorting': current_sorting,
     }
 
     return render(request, 'books/books.html', context)

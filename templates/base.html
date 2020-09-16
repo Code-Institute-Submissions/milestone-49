@@ -84,7 +84,7 @@
                                 {% if request.user.is_superuser %}
                                     <a href="" class="dropdown-item">Product Management</a>
                                 {% endif %}
-                                <a href="" class="dropdown-item">My Profile</a>
+                                <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
                                 <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
@@ -146,7 +146,7 @@
                             {% if request.user.is_superuser %}
                                 <a href="" class="dropdown-item">Product Management</a>
                             {% endif %}
-                            <a href="" class="dropdown-item">My Profile</a>
+                            <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
                             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                         {% else %}
                             <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
@@ -159,8 +159,8 @@
                         <div class="text-center">
                             <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                             <p class="my-0">
-                                {% if grand_total %}
-                                    ${{ grand_total|floatformat:2 }}
+                                {% if total %}
+                                    ${{ total|floatformat:2 }}
                                 {% else %}
                                     $0.00
                                 {% endif %}
@@ -199,7 +199,11 @@
     
     {% endblock %}
 
+    {% block outer_content_top %}
+    {% endblock %}
     {% block content %}
+    {% endblock %}
+    {% block outer_content_bottom %}
     {% endblock %}
 
     <footer class="container=fluid fixed-bottom">
@@ -209,8 +213,8 @@
             </div>
             <div class="col-lg-2 my-auto text-left">
                     <h4 class="my-0">Total: 
-                        {% if grand_total %}
-                            ${{ grand_total|floatformat:2 }}
+                        {% if total %}
+                            ${{ total|floatformat:2 }}
                         {% else %}
                             $0.00
                         {% endif %}
@@ -235,7 +239,7 @@
                     </h4>
             </div>
             <div class="col-lg-4 my-auto py-1 py-0 text-center">
-                <button class="btn btn-primary btn-lg btn-block text-center text-uppercase font-weight-bold" type="submit">Checkout Now</button>
+                <a href="{% url 'payment' %}" class="btn btn-primary btn-lg btn-block text-center text-uppercase font-weight-bold">Checkout Now</a>
             </div>
             
             
