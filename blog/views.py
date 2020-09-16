@@ -81,7 +81,7 @@ def add_post(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully added post!')
-            return redirect(reverse('post_detail', args=[post.id]))
+            return redirect(reverse('add_post'))
         else:
             messages.error(request, 'Failed to add post. Please ensure the form is valid.')
     else:
@@ -113,7 +113,7 @@ def edit_post(request, post_id):
             messages.error(request, 'Failed to update post. Please ensure the form is valid.')
     else:
         form = PostForm(instance=post)
-        messages.info(request, f'You are editing {post.name}')
+        messages.info(request, f'You are editing {post.title}')
 
     template = 'blog/edit_post.html'
     context = {
