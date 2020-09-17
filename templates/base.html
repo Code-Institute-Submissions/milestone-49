@@ -72,18 +72,23 @@
                             <a href="{% url 'books' %}?category=wellness" class="dropdown-item">Wellness</a>
                         </div>
                     </li>
+                    <li class="list-inline-item">
+                        <a class="text-black nav-link " href="{% url 'blog' %}">
+                            <div class="text-center">
+                                <div><i class="fas fa-scroll fa-lg p-3 border border-dark rounded-circle"></i></div>
+                                <p class="my-0">Blog</p>
+                            </div>
+                        </a>
+                    </li>
                     <li class="list-inline-item dropdown">
                         <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="fas fa-user fa-lg p-3 border border-dark rounded-circle"></i></div>
-                                <p class="my-0">My Account</p>
+                                <p class="my-0">Account</p>
                             </div>
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
-                                {% if request.user.is_superuser %}
-                                    <a href="{% url 'add_book' %}" class="dropdown-item">Product Management</a>
-                                {% endif %}
                                 <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
@@ -92,6 +97,23 @@
                             {% endif %}
                         </div>
                     </li>
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.is_superuser %}
+                        <li class="list-inline-item dropdown">
+                            <a class="text-black nav-link" href="#" id="management-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="text-center">
+                                    <div><i class="fas fa-cog fa-lg p-3 border border-dark rounded-circle"></i></div>
+                                    <p class="my-0">Admin</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu border-0" aria-labelledby="management-options">
+                                <a href="{% url 'add_book' %}" class="dropdown-item">Add Book</a>
+                                <a href="{% url 'add_book' %}" class="dropdown-item">Add Blog</a>
+                                <a href="{% url 'admin:index' %}" class="dropdown-item">Admin</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -112,6 +134,14 @@
                         <a href="{% url 'books' %}?category=wellness" class="dropdown-item">Wellness</a>
                     </div>
                 </li>
+                <li class="list-inline-item">
+                        <a class="text-black nav-link " href="{% url 'blog' %}">
+                            <div class="text-center">
+                                <div><i class="fas fa-scroll fa-lg"></i></div>
+                                <p class="my-0">Blog</p>
+                            </div>
+                        </a>
+                    </li>
                 <li class="list-inline-item">
                     <a class="text-black nav-link d-block d-lg-none" href="#" id="mobile-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="text-center">
@@ -143,9 +173,6 @@
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="user-options">
                         {% if request.user.is_authenticated %}
-                            {% if request.user.is_superuser %}
-                                <a href="{% url 'add_book' %}" class="dropdown-item">Product Management</a>
-                            {% endif %}
                             <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
                             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                         {% else %}
@@ -168,6 +195,23 @@
                         </div>
                     </a>
                 </li>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                    <li class="list-inline-item dropdown">
+                        <a class="text-black nav-link" href="#" id="management-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="text-center">
+                                <div><i class="fas fa-cog"></i></div>
+                                <p class="my-0">Admin</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu border-0" aria-labelledby="management-options">
+                            <a href="{% url 'add_book' %}" class="dropdown-item">Add Book</a>
+                            <a href="{% url 'add_book' %}" class="dropdown-item">Add Blog</a>
+                            <a href="{% url 'admin:index' %}" class="dropdown-item">Admin</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                {% endif %}
             </nav>
         </div>
         <div id="delivery-banner" class="row text-center">
