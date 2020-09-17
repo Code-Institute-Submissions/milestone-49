@@ -14,11 +14,26 @@
         <div class="col text-center">
             <h1 class="py-4">Books</h1>
             <hr class="w-50 mb-1">
-            {% for c in current_categories %}
-                <a class="text-decoration-none" href="{% url 'books' %}?category={{ c.name }}">
-                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">{{ c.friendly_name }}</span>
+            {% if current_categories == Null %}
+                {% for c in current_categories %}
+                    <a class="text-decoration-none" href="{% url 'books' %}?category={{ c.name }}">
+                        <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">{{ c.friendly_name }}</span>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <a class="text-decoration-none" href="{% url 'books' %}?category=fiction">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Fiction</span>
                 </a>
-            {% endfor %}
+                <a class="text-decoration-none" href="{% url 'books' %}?category=non_fiction">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Non Fiction</span>
+                </a>
+                <a class="text-decoration-none" href="{% url 'books' %}?category=cookbooks">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Cookbooks</span>
+                </a>
+                <a class="text-decoration-none" href="{% url 'books' %}?category=wellness">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Wellness</span>
+                </a>
+            {% endif %}
             <hr class="w-50 mb-1">
         </div>
     </div>
@@ -53,7 +68,7 @@
             <div class="card h-100 border-0">
                 {% if book.image %}
                 <a href="{% url 'book_detail' book.id %}">
-                    <img class="card-img-top img-fluid" src="{{ book.image.url }}" alt="{{ book.name }}">
+                    <img class="card-img-top img-fluid w-100" src="{{ book.image.url }}" alt="{{ book.name }}">
                 </a>
                 {% else %}
                 <a href="{% url 'book_detail' book.id %}">
